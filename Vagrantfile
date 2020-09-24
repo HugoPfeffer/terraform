@@ -1,3 +1,4 @@
+
 $install_terraform = <<-SCRIPT
 sudo yum install -y unzip && \
 mkdir /home/vagrant/.terraform && \
@@ -6,16 +7,19 @@ cd /home/vagrant/.terraform/ && \
 unzip terraform.zip && rm terraform.zip && \
 cd /home/vagrant
 SCRIPT
+
 $path_terraform = <<-SCRIPT
 echo PATH='$HOME/.terraform:${PATH}' >> /home/vagrant/.bash_profile && \
 echo export PATH >> /home/vagrant/.bash_profile
 SCRIPT
+
 $install_pip = <<-SCRIPT
 mkdir /home/vagrant/Downloads && cd /home/vagrant/Downloads && \
 curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py --user && \
 cd /home/vagrant && \
 echo export PATH='/home/vagrant/.local/bin:$PATH' >> /home/vagrant/.bash_profile
 SCRIPT
+
 $install_awscli = <<-SCRIPT
 pip3 install awscli --upgrade --user
 SCRIPT
@@ -29,7 +33,8 @@ Vagrant.configure("2") do |config|
 
     config.vm.define 'terraform' do |master|
         master.vm.box = "generic/centos8"
-
+        master.vm.network "public_network", bridge: ""
+        
         # Setup and install Terraform. 
         master.vm.provision "shell", inline: $install_terraform, privileged: false
 
