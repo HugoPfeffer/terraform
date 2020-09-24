@@ -1,3 +1,25 @@
+$install_terraform = <<-SCRIPT
+sudo yum install -y unzip && \
+mkdir /home/vagrant/.terraform && \
+curl -o /home/vagrant/.terraform/terraform.zip https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip && \
+cd /home/vagrant/.terraform/ && \
+unzip terraform.zip && rm terraform.zip && \
+cd /home/vagrant
+SCRIPT
+$path_terraform = <<-SCRIPT
+echo PATH='$HOME/.terraform:${PATH}' >> /home/vagrant/.bash_profile && \
+echo export PATH >> /home/vagrant/.bash_profile
+SCRIPT
+$install_pip = <<-SCRIPT
+mkdir /home/vagrant/Downloads && cd /home/vagrant/Downloads && \
+curl -O https://bootstrap.pypa.io/get-pip.py && python3 get-pip.py --user && \
+cd /home/vagrant && \
+echo export PATH='/home/vagrant/.local/bin:$PATH' >> /home/vagrant/.bash_profile
+SCRIPT
+$install_awscli = <<-SCRIPT
+pip3 install awscli --upgrade --user
+SCRIPT
+
 Vagrant.configure("2") do |config|
     config.vm.synced_folder ".", "/home/vagrant/host"
     config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -9,15 +31,16 @@ Vagrant.configure("2") do |config|
         master.vm.box = "generic/centos8"
 
         # Setup and install Terraform. 
-        master.vm.provision "shell", inline: "yum install -y unzip"
-        master.vm.provision "shell", inline: "mkdir /home/vagrant/.terraform"
-        master.vm.provision "shell", inline: "curl -o /home/vagrant/.terraform/terraform.zip https://releases.hashicorp.com/terraform/0.13.3/terraform_0.13.3_linux_amd64.zip"
-        master.vm.provision "shell", inline: "cd /home/vagrant/.terraform/ && unzip terraform.zip && rm terraform.zip"
+        master.vm.provision "shell", inline: $install_terraform, privileged: false
 
         # Add Terraform to the OS Path.
-        master.vm.provision "shell", inline: "echo PATH='$HOME/.terraform:${PATH}' >> /home/vagrant/.bash_profile"
-        master.vm.provision "shell", inline: "echo export PATH >> /home/vagrant/.bash_profile"
+        master.vm.provision "shell", inline: $path_terraform, privileged: false
 
-        
+        # Downloads and install pip. 
+        master.vm.provision "shell", inline: $install_pip, privileged: false
+
+        # Setup and instal AWS CLI.
+        master.vm.provision "shell", inline: $install_awscli, privileged: false
+
     end
 end
