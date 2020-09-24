@@ -1,3 +1,8 @@
 .vagrant
 *rsa
 *rsa.pub
+new_user_credentials.csv
+
+
+/LABS/terraform/*
+!/LABS/terraform/main.tf
