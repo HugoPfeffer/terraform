@@ -6,3 +6,7 @@ new_user_credentials.csv
 
 /LABS/terraform/*
 !/LABS/terraform/main.tf
+!/LABS/terraform/vars.tf
+!/LABS/terraform/security-group.tf
+!/LABS/terraform/remote-state.tf
+!/LABS/terraform/outputs.tf
