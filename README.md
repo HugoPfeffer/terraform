@@ -25,12 +25,7 @@ Projeto realizado com a finalidade de fixar meus conhecimentos na ferramenta Ter
 
 
 </br>
-</br>
-<hr>
-<i>Segue abaixo o conteúdo aprendido com este projeto:</i>
-
-
-
+<h2>Conteúdo aprendido</h2>
 <h4> <a href="https://www.terraform.io">Terraform</a></h4>
 <ul>
     <li>Provisionar instancias em diferentes regiões da AWS</li>
@@ -40,7 +35,12 @@ Projeto realizado com a finalidade de fixar meus conhecimentos na ferramenta Ter
     <li>Configurar e utilizar o Terraform Cloud</li>
 </ul>
 
-
+<style>
+hr.style10 {
+	border-top: 1px dotted #8c8b8b;
+	border-bottom: 1px dotted #fff;
+}
+</style>
 
 
 
