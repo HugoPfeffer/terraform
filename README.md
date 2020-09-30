@@ -26,7 +26,7 @@ Projeto realizado com a finalidade de fixar meus conhecimentos na ferramenta Ter
 
 </br>
 <h2>Conteúdo aprendido</h2>
-<h4> <a href="https://www.terraform.io">Terraform</a></h4>
+<h3> <a href="https://www.terraform.io">Terraform</a></h3>
 <ul>
     <li>Provisionar instancias em diferentes regiões da AWS</li>
     <li>Utilizar variáveis</li>
